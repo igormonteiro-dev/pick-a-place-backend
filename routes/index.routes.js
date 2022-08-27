@@ -8,5 +8,6 @@ router.get("/", (req, res, next) => {
 
 router.use("/places", require("../routes/places.routes"));
 router.use("/users/favorites", require("../routes/favorites.routes"));
+//TODO comments routes
 
 module.exports = router;
