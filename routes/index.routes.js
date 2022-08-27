@@ -7,5 +7,6 @@ router.get("/", (req, res, next) => {
 // You put the next routes here 👇
 
 router.use("/places", require("../routes/places.routes"));
+router.use("/users/favorites", require("../routes/favorites.routes"));
 
 module.exports = router;
