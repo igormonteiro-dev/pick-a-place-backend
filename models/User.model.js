@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema(
   {
+    email: { type: Schema.Types.String, unique: true },
     username: {
       type: Schema.Types.String,
       unique: true,
