@@ -72,19 +72,6 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-//TODO UPDATE PASSWORD
-// UPDATE USER👇
-router.post("/", isAuthenticated, async (req, res, next) => {
-  try {
-    const { username, password } = req.body;
-    await User.findOneAndUpdate({ username, password });
-
-    return res.sendStatus(204);
-  } catch (error) {
-    next(error);
-  }
-});
-
 // DELETE USER👇
 router.delete("/:id", isAuthenticated, async (req, res, next) => {
   try {
