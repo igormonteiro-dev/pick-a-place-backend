@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
 const Place = require("../models/Place.model");
+const isAuthenticated = require("../middleware/isAuthenticated.js");
 
 // CREATE PLACE👇
 router.post("/", async (req, res, next) => {
@@ -47,6 +48,16 @@ router.get("/", async (req, res, next) => {
     const places = await Place.find();
 
     res.json(places);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// SHOW ONE PLACE (FULL PAGE) WHEN THE USER CLICK
+router.get("/:id", isAuthenticated, async (req, res, next) => {
+  try {
+    placeId = req.params.id;
+    res.status(200).json(await Place.findById(placeId));
   } catch (error) {
     next(error);
   }
