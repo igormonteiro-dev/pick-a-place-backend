@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const isAuthenticated = require("../middleware/isAuthenticated");
+const isAuthenticated = require("../middleware/isAuthenticated.js");
 const Favorite = require("../models/Favorite.model");
 
 // CREATE FAVORITE👇
