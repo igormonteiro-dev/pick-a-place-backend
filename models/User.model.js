@@ -7,7 +7,7 @@ const userSchema = new Schema(
       type: Schema.Types.String,
       unique: true,
     },
-    password: { type: Schema.Types.String, required: true },
+    password: { type: Schema.Types.String, required: true, select: false },
   },
   {
     timestamps: true,
