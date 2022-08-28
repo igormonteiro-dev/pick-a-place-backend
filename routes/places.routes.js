@@ -53,13 +53,35 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// SHOW ONE PLACE (FULL PAGE) WHEN THE USER CLICK
-router.get("/:id", isAuthenticated, async (req, res, next) => {
+// SHOW ONE PLACE (FULL PAGE) WHEN THE USER CLICK👇
+// Don't need to be authenticated to see the places, only to favorite and give a comment
+router.get("/:id", async (req, res, next) => {
   try {
-    placeId = req.params.id;
+    const placeId = req.params.id;
     res.status(200).json(await Place.findById(placeId));
   } catch (error) {
     next(error);
+  }
+});
+
+// SHOW PLACES BY THEME👇
+router.get("/", async (req, res, next) => {
+  const filters = req.query;
+  try {
+    //check for each place, if it satisfies all the provided parameters, and if it does, then add it to the placesByTheme list.
+    const placesByTheme = await Place.filter((place) => {
+      let isValid = true;
+      for (key in filters) {
+        console.log(key, place[key], filters[key]);
+        isValid = isValid && place[key] == filters[key];
+      }
+      return isValid;
+    });
+    // .res.status(200)
+    // .json(placesByTheme);
+    res.send(placesByTheme);
+  } catch (error) {
+    netx(error);
   }
 });
 

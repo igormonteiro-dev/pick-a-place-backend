@@ -11,7 +11,7 @@ router
       const { comment } = req.body;
       const commentToCreate = {
         comment,
-        username: req.user.id,
+        user: req.user.id,
         place: req.params.id,
       };
       const createdComment = await Comment.create(commentToCreate);
@@ -27,7 +27,7 @@ router
       const { comment } = req.body;
       const commentToUpdate = {
         comment,
-        username: req.user.id,
+        user: req.user.id,
         place: req.params.id,
       };
 
