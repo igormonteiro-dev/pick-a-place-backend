@@ -54,7 +54,8 @@ router.get("/", async (req, res, next) => {
 });
 
 // SHOW ONE PLACE (FULL PAGE) WHEN THE USER CLICK
-router.get("/:id", isAuthenticated, async (req, res, next) => {
+// Don't need to be authenticated to see the places, only to favorite and give a comment
+router.get("/:id", async (req, res, next) => {
   try {
     placeId = req.params.id;
     res.status(200).json(await Place.findById(placeId));
