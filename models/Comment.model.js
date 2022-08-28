@@ -10,7 +10,7 @@ const commentSchema = new Schema(
       type: Schema.Types.String,
       maxLength: 100,
     },
-    username: {
+    user: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },

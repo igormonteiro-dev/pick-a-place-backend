@@ -9,7 +9,7 @@ router
     try {
       const addToFavorites = {
         place: req.params.id,
-        username: req.user.id,
+        user: req.user.id,
       };
       const favCreated = await Favorite.create(addToFavorites);
       res.status(201).json(favCreated);
