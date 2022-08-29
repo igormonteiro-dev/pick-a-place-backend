@@ -9,22 +9,18 @@ const placeSchema = new Schema({
   open24Hours: Schema.Types.Boolean,
   category: {
     type: Schema.Types.String,
-    enum: ["Wood", "Garden", "Square", "Park"],
+    enum: ["wood", "garden", "square", "park"],
   },
+  who: [
+    {
+      type: Schema.Types.String,
+      enum: ["couple", "friends", "family", "with pets"],
+    },
+  ],
   theme: [
     {
       type: Schema.Types.String,
-      enum: [
-        "Historic",
-        "Trendy",
-        "Private",
-        "Romantic",
-        "Popular",
-        "Family Friendly",
-        "Party", //festif
-        "Friends",
-        "Pet Friendly",
-      ],
+      enum: ["historic", "trendy", "private", "romantic", "festive"],
     },
   ],
 });
