@@ -2,11 +2,8 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jsonwebtoken = require("jsonwebtoken");
 const User = require("../models/User.model");
-// More info about nodemail to reset password:
-// https://charangan.medium.com/send-an-email-using-nodemailer-and-gmail-in-node-js-express-js-34523d5e0aa4
-// and...
-// https://dev.to/siddharth151199/how-to-send-email-in-node-js-with-nodemailer-edb
 const nodemailer = require("nodemailer");
+// const smtpTransport = require("nodemailer-smtp-transport");
 require("dotenv").config();
 
 const salt = 10;
@@ -14,8 +11,7 @@ const salt = 10;
 // RESET PASSWORD👇
 router.post("/reset-password", async (req, res, next) => {
   try {
-    const { email } = req.body;
-    const foundUser = await User.findOne({ email });
+    const foundUser = await User.findOne({ email: req.body.email });
     const { username } = foundUser;
 
     if (!foundUser) {
@@ -37,17 +33,13 @@ router.post("/reset-password", async (req, res, next) => {
       auth: {
         user: process.env.EMAIL_USERNAME,
         pass: process.env.EMAIL_PASSWORD,
-        auth: {
-          user: process.env.SMTP_EMAIL,
-          pass: process.env.SMTP_PASSWORD,
-        },
       },
     });
 
     const messageToSend = await transporter.sendMail({
       //Create a gmail
-      from: `"Pick a Place!" <pick-a-place-app@gmail.com>`,
-      to: email,
+      from: `"Pick a Place!" <pick.a.place.api@gmail.com>`,
+      to: req.body.email,
       subject: "Pick a Place! | Reset password",
       text: `Please click this link to reset your password: http://localhost:${process.env.PORT}/user/reset-password/?token=${resetToken}`,
     });
@@ -55,7 +47,7 @@ router.post("/reset-password", async (req, res, next) => {
     console.log(messageToSend);
     res
       .status(200)
-      .json({ message: "Plase, check your email to reset your password!" });
+      .json({ message: "Please, check your email to reset your password!" });
   } catch (err) {
     next(err);
   }
@@ -64,7 +56,7 @@ router.post("/reset-password", async (req, res, next) => {
 // UPDATE PASSWORD👇
 router.post("/user/reset-password", async (req, res, next) => {
   try {
-    const { token } = req.query; // token found in the mail link
+    const { token } = req.query; // token from the email link
     const { username, password } = req.body;
     const foundUser = await User.findOne({ username });
 
