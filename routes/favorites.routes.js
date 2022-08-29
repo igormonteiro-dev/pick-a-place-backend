@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const isAuthenticated = require("../middleware/isAuthenticated.js");
+const isAuthenticated = require("../middleware/isAuthenticated");
 const Favorite = require("../models/Favorite.model");
 
 // CREATE FAVORITE👇
@@ -11,6 +11,7 @@ router
         place: req.params.id,
         user: req.user.id,
       };
+
       const favCreated = await Favorite.create(addToFavorites);
       res.status(201).json(favCreated);
     } catch (error) {

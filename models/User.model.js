@@ -7,6 +7,7 @@ const userSchema = new Schema(
       type: Schema.Types.String,
       unique: true,
     },
+    // with select, we don't show the password in back-end
     password: { type: Schema.Types.String, required: true, select: false },
   },
   {

@@ -6,6 +6,13 @@ const isAuthenticated = require("../middleware/isAuthenticated.js");
 
 const salt = 10;
 
+function generateToken(params = {}) {
+  return jsonWebToken.sign(params, process.env.TOKEN_SECRET, {
+    algorithm: "HS256",
+    expiresIn: "1h",
+  });
+}
+
 // SIGN-UP USER👇
 router.post("/signup", async (req, res, next) => {
   const { email, username, password } = req.body;
@@ -33,7 +40,10 @@ router.post("/signup", async (req, res, next) => {
 
     user.password = undefined;
 
-    res.status(201).json(user);
+    res.status(201).json({
+      user,
+      token: generateToken({ id: user.id }),
+    });
   } catch (error) {
     next(error);
   }
@@ -46,20 +56,18 @@ router.post("/login", async (req, res, next) => {
     const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
-      return res.status(400).send({ error: "User not found" });
+      return res.status(400).json({ error: "User not found" });
     }
 
     if (!(await bcrypt.compare(password, user.password)))
-      return res.status(400).send({ error: "Invalid password" });
+      return res.status(400).json({ error: "Invalid password" });
 
     user.password = undefined;
 
-    const token = jsonWebToken.sign({ id: user.id }, process.env.TOKEN_SECRET, {
-      algorithm: "HS256",
-      expiresIn: "1h",
+    res.status(200).json({
+      user,
+      token: generateToken({ id: user.id }),
     });
-
-    res.status(200).json(token);
   } catch (error) {
     next(error);
   }
