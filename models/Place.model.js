@@ -11,7 +11,7 @@ const placeSchema = new Schema({
     type: Schema.Types.String,
     enum: ["wood", "garden", "square", "park"],
   },
-  who: [
+  withWho: [
     {
       type: Schema.Types.String,
       enum: ["couple", "friends", "family", "with pets"],
