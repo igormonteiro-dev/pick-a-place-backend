@@ -53,7 +53,7 @@ router.get("/:id", async (req, res, next) => {
       .select({ comment: 1, _id: 0 })
       .populate({
         path: "user",
-        select: { username: 1, createdAt: 1, _id: 0 },
+        select: { username: 1, avatar: 1, createdAt: 1, _id: 0 },
       });
 
     res.status(200).json({ placeFound, commentsFortheplace });
