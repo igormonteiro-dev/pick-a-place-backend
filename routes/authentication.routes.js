@@ -6,24 +6,28 @@ const isAuthenticated = require("../middleware/isAuthenticated.js");
 
 const salt = 10;
 
+function generateToken(params = {}) {
+  return jsonWebToken.sign(params, process.env.TOKEN_SECRET, {
+    algorithm: "HS256",
+    expiresIn: "1h",
+  });
+}
+
 // SIGN-UP USER👇
 router.post("/signup", async (req, res, next) => {
   const { email, username, password } = req.body;
-  if (!password || !username || !email) {
-    return res.status(400).json({
-      message:
-        "All fields are mandatory. Please enter your email, password and username!",
-    });
-  }
+
   try {
-    const foundUser = await User.findOne({
-      $or: [{ username: username }, { email: email }],
-    });
-    if (foundUser) {
-      return res.status(401).json({
-        message: "Username or email already exist. Please try to loggin",
+    if (
+      await User.findOne({
+        $or: [{ username: username }, { email: email }],
+      })
+    )
+      return res.status(400).json({
+        error:
+          "This username or email are already registered. Please try to login",
       });
-    }
+
     const generatedSalt = bcrypt.genSaltSync(salt);
     const hashedPassword = bcrypt.hashSync(password, generatedSalt);
 
@@ -32,8 +36,14 @@ router.post("/signup", async (req, res, next) => {
       username,
       password: hashedPassword,
     };
-    const createdUser = await User.create(newUser);
-    res.status(201).json(createdUser);
+    const user = await User.create(newUser);
+
+    user.password = undefined;
+
+    res.status(201).json({
+      user,
+      token: generateToken({ id: user.id }),
+    });
   } catch (error) {
     next(error);
   }
@@ -41,32 +51,23 @@ router.post("/signup", async (req, res, next) => {
 
 // LOGIN USER👇
 router.post("/login", async (req, res, next) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res
-      .status(400)
-      .json({ message: "Please enter a password and username !" });
-  }
-
+  const { email, password } = req.body;
   try {
-    const foundUser = await User.findOne({ username });
-    if (!foundUser) {
-      return res.status(400).json({ message: "Username does not exist" });
+    const user = await User.findOne({ email }).select("+password");
+
+    if (!user) {
+      return res.status(400).json({ error: "User not found" });
     }
 
-    const matchingPassword = bcrypt.compareSync(password, foundUser.password);
+    if (!(await bcrypt.compare(password, user.password)))
+      return res.status(400).json({ error: "Invalid password" });
 
-    if (!matchingPassword) {
-      return res.status(400).json({ message: "Wrong password" });
-    }
+    user.password = undefined;
 
-    const payload = { username };
-    const token = jsonWebToken.sign(payload, process.env.TOKEN_SECRET, {
-      algorithm: "HS256",
-      expiresIn: "1h",
+    res.status(200).json({
+      user,
+      token: generateToken({ id: user.id }),
     });
-
-    res.status(200).json(token);
   } catch (error) {
     next(error);
   }

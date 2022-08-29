@@ -1,11 +1,13 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jsonwebtoken = require("jsonwebtoken");
+const User = require("../models/User.model");
 // More info about nodemail to reset password:
 // https://charangan.medium.com/send-an-email-using-nodemailer-and-gmail-in-node-js-express-js-34523d5e0aa4
 // and...
 // https://dev.to/siddharth151199/how-to-send-email-in-node-js-with-nodemailer-edb
 const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 const salt = 10;
 
@@ -22,7 +24,7 @@ router.post("/reset-password", async (req, res, next) => {
     }
 
     const resetToken = jsonwebtoken.sign(
-      { username, _id },
+      { username },
       process.env.TOKEN_SECRET,
       {
         algorithm: "HS256",
@@ -35,6 +37,10 @@ router.post("/reset-password", async (req, res, next) => {
       auth: {
         user: process.env.EMAIL_USERNAME,
         pass: process.env.EMAIL_PASSWORD,
+        auth: {
+          user: process.env.SMTP_EMAIL,
+          pass: process.env.SMTP_PASSWORD,
+        },
       },
     });
 

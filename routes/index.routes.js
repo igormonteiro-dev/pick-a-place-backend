@@ -11,6 +11,7 @@ router.use("/users/favorites", require("../routes/favorites.routes"));
 router.use("/auth", require("../routes/authentication.routes"));
 router.use("/comments", require("../routes/comments.routes"));
 router.use("/users", require("../routes/users.routes"));
+router.use("/", require("../routes/resetPassword.routes"));
 
 //TODO comments routes
 
