@@ -9,6 +9,7 @@ const userSchema = new Schema(
     },
     // with select, we don't show the password in back-end
     password: { type: Schema.Types.String, required: true, select: false },
+    url: { type: Schema.Types.String }, //FIX
   },
   {
     timestamps: true,
