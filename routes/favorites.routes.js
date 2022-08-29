@@ -28,17 +28,18 @@ router
     } catch (error) {
       next(error);
     }
-  })
-
-  // SHOW ALL FAVORITES👇
-  .get(async (req, res, next) => {
-    try {
-      const favorites = await Favorite.find();
-
-      res.json(favorites);
-    } catch (error) {
-      next(error);
-    }
   });
+
+// SHOW FAVORITES BY USER 👇
+router.get("/", isAuthenticated, async (req, res, next) => {
+  try {
+    const favoritesByUser = await Favorite.find({
+      user: req.user.id,
+    });
+    return res.status(200).json(favoritesByUser);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
