@@ -111,7 +111,7 @@ const places = [
     metroStation: "Pont Cardinet",
     open24Hours: false,
     category: "Park",
-    theme: "Friends, Family Friendly",
+    theme: ["Friends", "Family Friendly"],
   },
   {
     name: "Parc Chapelle Charbon",
@@ -121,7 +121,7 @@ const places = [
     metroStation: "Porte de la Chapelle",
     open24Hours: false,
     category: "Park",
-    theme: "Friends, Family Friendly",
+    theme: ["Friends", "Family Friendly"],
   },
   {
     name: "Parc Kellermann",
@@ -141,7 +141,7 @@ const places = [
     metroStation: "Sully Morland",
     open24Hours: true,
     category: "Park",
-    theme: "Friends, Trendy, Historical",
+    theme: ["Friends", "Trendy", "Historic"],
   },
   {
     name: "Parc de Passy",
@@ -159,9 +159,9 @@ const places = [
     zipCode: "75015",
     metroLine: "12",
     metroStation: "Convention",
-    open24Hours: False,
+    open24Hours: false,
     category: "Park",
-    theme: "Friends, Family Friendly",
+    theme: ["Friends", "Family Friendly"],
   },
   {
     name: "Parc Marcel Bleustein Blanchet",
@@ -171,7 +171,7 @@ const places = [
     metroStation: "Lamarck Caulaincourt",
     open24Hours: false,
     category: "Park",
-    theme: "Historical, Friends, Family Friendly",
+    theme: ["Historic", "Friends", "Family Friendly"],
   },
   {
     name: "Parc de Choisy",
@@ -181,7 +181,7 @@ const places = [
     metroStation: "Tolbiac",
     open24Hours: false,
     category: "Park",
-    theme: "Family, // sports friendly ",
+    theme: "Family Friendly",
   },
   {
     name: "Esplanade des Invalides",
@@ -201,7 +201,7 @@ const places = [
     metroStation: "Montgallet",
     open24Hours: false,
     category: "Garden",
-    theme: "Friends, Family Friendly",
+    theme: ["Friends", "Family Friendly"],
   },
   {
     name: "Square Louis-XIII, Places des Vosges",
@@ -221,7 +221,7 @@ const places = [
     metroStation: "Bastille",
     open24Hours: true,
     category: "Garden",
-    theme: "Friends, Historical",
+    theme: ["Friends", "Historic"],
   },
   {
     name: "Parc de la Butte du Chapeau Rouge",

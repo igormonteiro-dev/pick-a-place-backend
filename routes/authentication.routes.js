@@ -16,6 +16,11 @@ function generateToken(params = {}) {
 // SIGN-UP USER👇
 router.post("/signup", async (req, res, next) => {
   const { email, username, password } = req.body;
+  if (!email || !username || !password) {
+    return res.status(400).json({
+      error: "All fields are required to signup",
+    });
+  }
 
   try {
     if (

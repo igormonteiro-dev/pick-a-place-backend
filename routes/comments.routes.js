@@ -47,16 +47,16 @@ router
     } catch (error) {
       next(error);
     }
-  })
-
-  // SHOW ALL COMMENTS👇
-  .get(isAuthenticated, async (req, res, next) => {
-    try {
-      const allComments = await Comment.find();
-      return res.status(200).json(allComments);
-    } catch (error) {
-      next(error);
-    }
   });
+
+// SHOW ALL COMMENTS👇
+router.get("/", async (req, res, next) => {
+  try {
+    const allComments = await Comment.find();
+    return res.status(200).json(allComments);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
