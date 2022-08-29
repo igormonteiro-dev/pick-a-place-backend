@@ -20,7 +20,7 @@ const placeSchema = new Schema({
   theme: [
     {
       type: Schema.Types.String,
-      enum: ["historic", "trendy", "private", "romantic", "festive"],
+      enum: ["historic", "trendy", "private", "romantic", "festive", "local"],
     },
   ],
 });
