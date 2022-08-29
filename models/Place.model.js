@@ -23,6 +23,7 @@ const placeSchema = new Schema({
         "Family Friendly",
         "Party", //festif
         "Friends",
+        "Pet Friendly",
       ],
     },
   ],
