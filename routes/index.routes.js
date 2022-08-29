@@ -7,12 +7,11 @@ router.get("/", (req, res, next) => {
 // Put the next routes here 👇
 
 router.use("/places", require("../routes/places.routes"));
-router.use("/users/favorites", require("../routes/favorites.routes"));
 router.use("/auth", require("../routes/authentication.routes"));
-router.use("/comments", require("../routes/comments.routes"));
-router.use("/users", require("../routes/users.routes"));
-router.use("/", require("../routes/resetPassword.routes"));
 
-//TODO comments routes
+router.use("/user/favorites", require("../routes/favorites.routes"));
+router.use("/comments", require("../routes/comments.routes"));
+
+router.use("/", require("../routes/resetPassword.routes"));
 
 module.exports = router;

@@ -22,7 +22,7 @@ router
   })
 
   // UPDATE COMMENT👇
-  .post(isAuthenticated, async (req, res, next) => {
+  .patch(isAuthenticated, async (req, res, next) => {
     try {
       const { comment } = req.body;
       const commentToUpdate = {
@@ -50,7 +50,7 @@ router
   });
 
 // SHOW ALL COMMENTS👇
-router.get("/", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const allComments = await Comment.find();
     return res.status(200).json(allComments);

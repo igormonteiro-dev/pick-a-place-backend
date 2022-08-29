@@ -17,7 +17,7 @@ router.post("/", async (req, res, next) => {
 // UPDATE PLACE BY ID👇
 router
   .route("/:id")
-  .post(async (req, res, next) => {
+  .patch(async (req, res, next) => {
     try {
       const placeToUpdate = await Place.findByIdAndUpdate(
         req.params.id,
@@ -42,19 +42,7 @@ router
     }
   });
 
-// SHOW ALL PLACES👇
-router.route("/").get(async (req, res, next) => {
-  try {
-    const places = await Place.find(req.query);
-
-    res.json(places);
-  } catch (error) {
-    next(error);
-  }
-});
-
 // SHOW ONE PLACE (FULL PAGE) WHEN THE USER CLICK👇
-// Don't need to be authenticated to see the places, only to favorite and give a comment
 router.get("/:id", async (req, res, next) => {
   try {
     const placeId = req.params.id;
