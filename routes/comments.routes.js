@@ -49,14 +49,14 @@ router
     }
   });
 
-// // SHOW A COMMENT BY Id👇
-// router.get("/:id", async (req, res, next) => {
-//   try {
-//     const allComments = await Comment.find();
-//     return res.status(200).json(allComments);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+// // SHOW ALL COMMENTS BY USER👇
+router.get("/:id", isAuthenticated, async (req, res, next) => {
+  try {
+    const allComments = await Comment.find();
+    return res.status(200).json(allComments);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
