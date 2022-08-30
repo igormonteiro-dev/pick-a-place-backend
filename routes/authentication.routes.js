@@ -54,7 +54,7 @@ router.post(
       };
       const user = await User.create(newUser);
 
-      delete user.password;
+      user.password = undefined;
 
       res.status(201).json({
         user,
@@ -65,46 +65,6 @@ router.post(
     }
   }
 );
-
-// router.post("/signup", async (req, res, next) => {
-//   const { email, username, password } = req.body;
-//   if (!email || !username || !password) {
-//     return res.status(400).json({
-//       error: "All fields are required to signup",
-//     });
-//   }
-
-//   try {
-//     if (
-//       await User.findOne({
-//         $or: [{ username: username }, { email: email }],
-//       })
-//     )
-//       return res.status(400).json({
-//         error:
-//           "This username or email are already registered. Please try to login",
-//       });
-
-//     const generatedSalt = bcrypt.genSaltSync(salt);
-//     const hashedPassword = bcrypt.hashSync(password, generatedSalt);
-
-//     const newUser = {
-//       email,
-//       username,
-//       password: hashedPassword,
-//     };
-//     const user = await User.create(newUser);
-
-//     user.password = undefined;
-
-//     res.status(201).json({
-//       user,
-//       token: generateToken({ id: user.id }),
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 // LOGIN USER👇
 router.post("/login", async (req, res, next) => {
