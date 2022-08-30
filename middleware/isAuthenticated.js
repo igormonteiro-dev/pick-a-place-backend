@@ -13,8 +13,8 @@ const isAuthenticated = async (req, res, next) => {
     const userToken = jsonwebtoken.verify(token, process.env.TOKEN_SECRET);
 
     const { user } = userToken;
-    const Authuser = await User.findOne({ user });
-    req.user = Authuser;
+    const AuthUser = await User.findOne({ user });
+    req.user = AuthUser;
   } catch (error) {
     res.status(401).json({ message: "Invalid token" });
     return;

@@ -50,7 +50,7 @@ router.post(
         email,
         username,
         password: hashedPassword,
-        url: avatar,
+        photo: avatar,
       };
       const user = await User.create(newUser);
 
