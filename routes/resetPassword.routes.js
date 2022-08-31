@@ -53,34 +53,34 @@ router.post("/reset-password", async (req, res, next) => {
   }
 });
 
-// UPDATE PASSWORD👇
-router.post("/user/reset-password", async (req, res, next) => {
-  try {
-    const { token } = req.query; // token from the email link
-    const { username, password } = req.body;
-    const foundUser = await User.findOne({ username });
+// // UPDATE PASSWORD👇
+// router.post("/user/reset-password", async (req, res, next) => {
+//   try {
+//     const { token } = req.query; // token from the email link
+//     const { username, password } = req.body;
+//     const foundUser = await User.findOne({ username });
 
-    if (!foundUser) {
-      res.status(400).json({ message: `${username} doesn't exist` });
-      return;
-    }
-    const decodedJwt = jsonwebtoken.verify(token, process.env.TOKEN_SECRET);
+//     if (!foundUser) {
+//       res.status(400).json({ message: `${username} doesn't exist` });
+//       return;
+//     }
+//     const decodedJwt = jsonwebtoken.verify(token, process.env.TOKEN_SECRET);
 
-    if (token) {
-      const generatedSalt = bcrypt.genSaltSync(salt);
-      const hashedPassword = bcrypt.hashSync(password, generatedSalt);
+//     if (token) {
+//       const generatedSalt = bcrypt.genSaltSync(salt);
+//       const hashedPassword = bcrypt.hashSync(password, generatedSalt);
 
-      await User.findOneAndUpdate(
-        { username: decodedJwt.username },
-        { password: hashedPassword }
-      );
-    }
-    res.status(200).json({
-      message: "You've successfully updated your password!",
-    });
-  } catch (error) {
-    next(error);
-  }
-});
+//       await User.findOneAndUpdate(
+//         { username: decodedJwt.username },
+//         { password: hashedPassword }
+//       );
+//     }
+//     res.status(200).json({
+//       message: "You've successfully updated your password!",
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 module.exports = router;
