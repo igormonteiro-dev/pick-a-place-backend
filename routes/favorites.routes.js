@@ -22,7 +22,7 @@ router
   // DELETE FAVORITE👇
   .delete(isAuthenticated, async (req, res, next) => {
     try {
-      await Favorite.findByIdAndRemove(req.params.id);
+      await Favorite.findByIdAndDelete(req.params.id);
 
       return res.sendStatus(204);
     } catch (error) {

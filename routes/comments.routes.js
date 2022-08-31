@@ -26,11 +26,13 @@ router
       const { comment } = req.body;
       const commentToUpdate = {
         comment,
-        user: req.user.id,
-        place: req.params.id,
       };
 
-      const commentUpdated = await Comment.findByIdAndUpdate(commentToUpdate);
+      const commentUpdated = await Comment.findByIdAndUpdate(
+        req.params.id,
+        commentToUpdate,
+        { new: true }
+      );
       res.json(commentUpdated);
     } catch (error) {
       next(error);

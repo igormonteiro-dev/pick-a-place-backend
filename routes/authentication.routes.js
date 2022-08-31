@@ -35,7 +35,7 @@ router.post(
         $or: [{ username: username }, { email: email }],
       });
 
-      if (await User.findOne(compareCredentials))
+      if (compareCredentials)
         return res.status(400).json({
           error:
             "This username or email are already registered. Please try to login",
