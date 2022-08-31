@@ -2,7 +2,9 @@ const Place = require("../models/Place.model");
 const mongoose = require("mongoose");
 
 const places = [
-  // parks
+  /* 
+  🌳parks🌳
+  */
   {
     name: "Parc des Buttes Chaumont",
     adress: "7, rue Botzaris",
@@ -202,50 +204,6 @@ const places = [
     theme: "local",
   },
   {
-    name: "Esplanade des Invalides",
-    adress: "1, rue Fabert",
-    zipCode: "75007",
-    metroLine: "8",
-    metroStation: "La Tour Maubourg",
-    open24Hours: true,
-    category: "garden",
-    withWho: ["couple", "friends"],
-    theme: ["festive", "trendy", "historic"],
-  },
-  {
-    name: "Jardin de Reuilly",
-    adress: "15, rue Albinoni",
-    zipCode: "75012",
-    metroLine: "8",
-    metroStation: "Montgallet",
-    open24Hours: false,
-    category: "garden",
-    withWho: ["couple", "friends", "family"],
-    theme: ["local", "romantic"],
-  },
-  {
-    name: "Square Louis-XIII, Places des Vosges",
-    adress: "30, place des Vosges",
-    zipCode: "75004",
-    metroLine: "8",
-    metroStation: "Chemin Vert",
-    open24Hours: false,
-    category: "square",
-    withWho: ["couple", "friends", "family"],
-    theme: ["historic", "trendy", "romantic", "festive"],
-  },
-  {
-    name: "Jardin du Port de l'Arsenal",
-    adress: "53, boulevard de la Bastille",
-    zipCode: "75012",
-    metroLine: "1",
-    metroStation: "Bastille",
-    open24Hours: true,
-    category: "garden",
-    withWho: ["couple", "friends"],
-    theme: ["festive", "historic", "trendy"],
-  },
-  {
     name: "Parc de la Butte du Chapeau Rouge",
     adress: "5, avenue Debidour",
     zipCode: "75019",
@@ -268,15 +226,53 @@ const places = [
     theme: "local",
   },
   {
-    name: "square du Vert Galant",
-    adress: "Place du Pont-Neuf",
-    zipCode: "75001",
-    metroLine: "7",
-    metroStation: "Pont Neuf",
+    name: "Parc de la Cité Universitaire",
+    adress: "17 boulevard Jourdan",
+    zipCode: "75014",
+    metroLine: "B",
+    metroStation: "Cité Universitaire",
+    open24Hours: false,
+    category: "park",
+    withWho: "friends",
+    theme: "local",
+  },
+
+  /*
+  🌳gardens🌳
+  */
+
+  {
+    name: "Esplanade des Invalides",
+    adress: "1, rue Fabert",
+    zipCode: "75007",
+    metroLine: "8",
+    metroStation: "La Tour Maubourg",
     open24Hours: true,
-    category: "square",
+    category: "garden",
     withWho: ["couple", "friends"],
-    theme: ["romantic", "historic"],
+    theme: ["festive", "trendy", "historic"],
+  },
+  {
+    name: "Jardin de Reuilly",
+    adress: "15, rue Albinoni",
+    zipCode: "75012",
+    metroLine: "8",
+    metroStation: "Montgallet",
+    open24Hours: false,
+    category: "garden",
+    withWho: ["couple", "friends", "family"],
+    theme: ["local", "romantic"],
+  },
+  {
+    name: "Jardin du Port de l'Arsenal",
+    adress: "53, boulevard de la Bastille",
+    zipCode: "75012",
+    metroLine: "1",
+    metroStation: "Bastille",
+    open24Hours: true,
+    category: "garden",
+    withWho: ["couple", "friends"],
+    theme: ["festive", "historic", "trendy"],
   },
   {
     name: "Jardin des Plantes",
@@ -289,17 +285,7 @@ const places = [
     withWho: ["couple", "friends", "family"],
     theme: ["trendy", "romantic", "historic"],
   },
-  {
-    name: "Parc de la Cité Universitaire",
-    adress: "17 boulevard Jourdan",
-    zipCode: "75014",
-    metroLine: "B",
-    metroStation: "Cité Universitaire",
-    open24Hours: false,
-    category: "park",
-    withWho: "friends",
-    theme: "local",
-  },
+
   {
     name: "Jardin des Rosiers Joseph Migneret",
     adress: "10 rue des Rosiers",
@@ -322,6 +308,32 @@ const places = [
     withWho: ["couple", "friends", "family"],
     theme: ["romantic", "private"],
   },
+
+  /*
+  🌳squares🌳
+  */
+  {
+    name: "Square Louis-XIII, Places des Vosges",
+    adress: "30, place des Vosges",
+    zipCode: "75004",
+    metroLine: "8",
+    metroStation: "Chemin Vert",
+    open24Hours: false,
+    category: "square",
+    withWho: ["couple", "friends", "family"],
+    theme: ["historic", "trendy", "romantic", "festive"],
+  },
+  {
+    name: "square du Vert Galant",
+    adress: "Place du Pont-Neuf",
+    zipCode: "75001",
+    metroLine: "7",
+    metroStation: "Pont Neuf",
+    open24Hours: true,
+    category: "square",
+    withWho: ["couple", "friends"],
+    theme: ["romantic", "historic"],
+  },
 ];
 
 require("../db/index");
@@ -336,13 +348,16 @@ seedDB().then(() => {
   mongoose.connection.close();
 });
 
-// {
-//     name:"",
-//     adress:"",
-//     zipCode:"",
-//     metroLine:"",
-//     metroStation:"",
-//     open24Hours:,
-//     category:"",
-//     theme:"",
-//   }
+/*
+model to add new place
+{
+    name:"",
+    adress:"",
+    zipCode:"",
+    metroLine:"",
+    metroStation:"",
+    open24Hours:,
+    category:"",
+    theme:"",
+  }
+  */

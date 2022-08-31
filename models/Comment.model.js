@@ -8,7 +8,7 @@ const commentSchema = new Schema(
     },
     comment: {
       type: Schema.Types.String,
-      maxLength: 100,
+      maxLength: 150,
     },
     user: {
       type: Schema.Types.ObjectId,

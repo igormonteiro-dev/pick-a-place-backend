@@ -13,7 +13,7 @@ const isAuthenticated = async (req, res, next) => {
     const userToken = jsonwebtoken.verify(token, process.env.TOKEN_SECRET);
 
     const { id } = userToken;
-    console.log(userToken);
+
     const authUser = await User.findOne({ _id: id });
     req.user = authUser;
   } catch (error) {
@@ -21,7 +21,6 @@ const isAuthenticated = async (req, res, next) => {
     return;
   }
 
-  // If the user is authenticated, run next
   next();
 };
 

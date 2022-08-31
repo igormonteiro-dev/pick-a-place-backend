@@ -1,17 +1,21 @@
+const bcrypt = require("bcryptjs");
 const router = require("express").Router();
 const isAuthenticated = require("../middleware/isAuthenticated");
 const User = require("../models/User.model");
 const fileUploader = require("../config/cloudinary.config");
 
+const salt = 10;
+
+const generateToken = require("../routes/generateTokenControl.routes");
 /* 
-USER PROFILE
+USER PROFILE PAGE
 */
 
-// Update profile - username, bio and avatar👇
+// Update profile - username, bio and/or avatar👇
 router.post(
   "/",
-  fileUploader.single("avatar"),
   isAuthenticated,
+  fileUploader.single("avatar"),
   async (req, res, next) => {
     try {
       const { bio, username } = req.body;
@@ -31,29 +35,34 @@ router.post(
     }
   }
 );
+
 // UPDATE PASSWORD👇
-router.post("/user/reset-password", isAuthenticated, async (req, res, next) => {
+router.post("/reset-password", isAuthenticated, async (req, res, next) => {
   try {
     const { password } = req.body;
 
-    if (password === req.user.password) {
-      res.status(400).json({ message: "Please, choose a new password" });
-      return;
-    }
+    const foundUser = await User.findById(req.user.id).select("+password");
+    console.log(bcrypt.compare(password, foundUser.password));
+    const isSamePassword = await bcrypt.compare(password, foundUser.password);
+    if (isSamePassword)
+      return res.status(400).json({
+        error: "Please, choose a new password",
+      });
 
-    const decodedJwt = jsonwebtoken.verify(token, process.env.TOKEN_SECRET);
+    const generatedSalt = bcrypt.genSaltSync(salt);
+    const hashedPassword = bcrypt.hashSync(password, generatedSalt);
 
-    if (token) {
-      const generatedSalt = bcrypt.genSaltSync(salt);
-      const hashedPassword = bcrypt.hashSync(password, generatedSalt);
+    const newPassword = {
+      password: hashedPassword,
+    };
+    const user = await User.findByIdAndUpdate(req.user.id, newPassword);
 
-      await User.findOneAndUpdate(
-        { username: decodedJwt.username },
-        { password: hashedPassword }
-      );
-    }
-    res.status(200).json({
-      message: "You've successfully updated your password!",
+    // To not show the password
+    user.password = undefined;
+
+    res.status(201).json({
+      user,
+      token: generateToken({ id: user.id }),
     });
   } catch (error) {
     next(error);
@@ -70,7 +79,5 @@ router.delete("/", isAuthenticated, async (req, res, next) => {
     next(error);
   }
 });
-
-// Show all places with comment ?????
 
 module.exports = router;
