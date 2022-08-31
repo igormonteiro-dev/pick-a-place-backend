@@ -90,15 +90,4 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-// DELETE USER👇
-router.delete("/:id", isAuthenticated, async (req, res, next) => {
-  try {
-    await User.findByIdAndRemove(req.params.id);
-
-    return res.sendStatus(204);
-  } catch (error) {
-    next(error);
-  }
-});
-
 module.exports = router;
