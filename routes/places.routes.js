@@ -1,8 +1,5 @@
 const router = require("express").Router();
-const mongoose = require("mongoose");
 const Place = require("../models/Place.model");
-const isAuthenticated = require("../middleware/isAuthenticated.js");
-const User = require("../models/User.model");
 const Comment = require("../models/Comment.model");
 
 // CREATE PLACE👇

@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const mongoose = require("mongoose");
 const Comment = require("../models/Comment.model");
 const isAuthenticated = require("../middleware/isAuthenticated");
 
@@ -49,14 +48,15 @@ router
     }
   });
 
+// // Not deployed for now
 // // SHOW ALL COMMENTS BY USER👇
-router.get("/:id", isAuthenticated, async (req, res, next) => {
-  try {
-    const allComments = await Comment.find();
-    return res.status(200).json(allComments);
-  } catch (error) {
-    next(error);
-  }
-});
+// router.get("/:id", isAuthenticated, async (req, res, next) => {
+//   try {
+//     const allComments = await Comment.find();
+//     return res.status(200).json(allComments);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 module.exports = router;

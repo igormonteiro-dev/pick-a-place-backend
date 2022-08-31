@@ -12,7 +12,7 @@ const userSchema = new Schema(
     photo: {
       type: Schema.Types.String,
       default:
-        "https://voyage-onirique.com/wp-content/uploads/2021/08/chat-drole-funny-.jpg",
+        "https://res.cloudinary.com/ddfqvbvpp/image/upload/v1661934847/istockphoto-1208175274-612x612_xtu9fa.jpg",
     },
     bio: { type: Schema.Types.String, maxLength: 150 },
   },

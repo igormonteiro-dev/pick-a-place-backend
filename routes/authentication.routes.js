@@ -1,18 +1,16 @@
 const router = require("express").Router();
 const User = require("./../models/User.model");
+
 const bcrypt = require("bcryptjs");
 const jsonWebToken = require("jsonwebtoken");
 const isAuthenticated = require("../middleware/isAuthenticated.js");
+
 const fileUploader = require("../config/cloudinary.config");
 
 const salt = 10;
 
-function generateToken(params = {}) {
-  return jsonWebToken.sign(params, process.env.TOKEN_SECRET, {
-    algorithm: "HS256",
-    expiresIn: "1h",
-  });
-}
+// generateToken function from generateTokenControl.routes
+const generateToken = require("../routes/generateTokenControl.routes");
 
 // SIGN-UP USER👇
 router.post(
@@ -33,11 +31,11 @@ router.post(
     }
 
     try {
-      if (
-        await User.findOne({
-          $or: [{ username: username }, { email: email }],
-        })
-      )
+      const compareCredentials = await User.findOne({
+        $or: [{ username: username }, { email: email }],
+      });
+
+      if (await User.findOne(compareCredentials))
         return res.status(400).json({
           error:
             "This username or email are already registered. Please try to login",
@@ -70,13 +68,15 @@ router.post(
 router.post("/login", async (req, res, next) => {
   const { email, password } = req.body;
   try {
+    //Using select("+password") to get the user password - select:false in user model
     const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
       return res.status(400).json({ error: "User not found" });
     }
 
-    if (!(await bcrypt.compare(password, user.password)))
+    const comparePassword = await bcrypt.compare(password, user.password);
+    if (!comparePassword)
       return res.status(400).json({ error: "Invalid password" });
 
     user.password = undefined;
