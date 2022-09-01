@@ -1,6 +1,6 @@
 # Pick a Place ! Rest API Project 
 
-* This Project is presented By Igor Monteiro & Guillaume Chatriot *
+* *This Project is presented By Igor Monteiro & Guillaume Chatriot*
 
 What kind of picnic person are you ?
 
