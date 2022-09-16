@@ -11,6 +11,7 @@ router.use("/auth", require("../routes/authentication.routes"));
 router.use("/user/profile", require("../routes/profile.routes")); //profile page
 router.use("/user/favorites", require("../routes/favorites.routes"));
 router.use("/user/comments", require("../routes/comments.routes"));
+router.use("/", require("./RandomPlaces.routes"));
 
 // If user forget the password
 router.use("/", require("../routes/resetPassword.routes"));
