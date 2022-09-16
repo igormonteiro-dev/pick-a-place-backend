@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const placeSchema = new Schema({
+  image: Schema.Types.String,
   name: Schema.Types.String,
   adress: Schema.Types.String,
   zipCode: Schema.Types.Number,
