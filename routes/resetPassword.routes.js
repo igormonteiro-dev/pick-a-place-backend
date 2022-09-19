@@ -9,7 +9,7 @@ require("dotenv").config();
 const salt = 10;
 
 // RESET PASSWORD👇
-router.post("/reset-password", async (req, res, next) => {
+router.post("/forgot-password", async (req, res, next) => {
   try {
     const foundUser = await User.findOne({ email: req.body.email });
     const { username } = foundUser;
@@ -40,7 +40,7 @@ router.post("/reset-password", async (req, res, next) => {
       from: `"Pick a Place!" <pick.a.place.api@gmail.com>`,
       to: req.body.email,
       subject: "Pick a Place! | Reset password",
-      text: `Please click this link to reset your password: http://localhost:${process.env.PORT}/user/reset-password/?token=${resetToken}`,
+      text: `Please click this link to reset your password: http://localhost:${process.env.PORT}/user/forgot-password/?token=${resetToken}`,
     });
 
     console.log(messageToSend);
@@ -54,7 +54,7 @@ router.post("/reset-password", async (req, res, next) => {
 });
 
 // UPDATE PASSWORD👇
-router.post("/user/reset-password", async (req, res, next) => {
+router.post("/user/reset-password", isAuthenticated, async (req, res, next) => {
   try {
     const { token } = req.query; // token from the email link
     const { username, password } = req.body;
