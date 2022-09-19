@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jsonwebtoken = require("jsonwebtoken");
 const User = require("../models/User.model");
 const nodemailer = require("nodemailer");
+const isAuthenticated = require("../middleware/isAuthenticated");
 // const smtpTransport = require("nodemailer-smtp-transport");
 require("dotenv").config();
 
