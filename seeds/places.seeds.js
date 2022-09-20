@@ -15,8 +15,8 @@ const places = [
     metroStation: "Pyrénées",
     open24Hours: false,
     category: "park",
-    withWho: ["couple", "friends", "family", "with pets"],
-    theme: "festive",
+    withWho: ["couple", "friends", "family"],
+    theme: ["festive", "with pets"],
   },
   {
     image:
@@ -119,8 +119,8 @@ const places = [
     metroStation: "Porte Dorée",
     open24Hours: true,
     category: "wood",
-    withWho: ["couple", "friends", "family", "with pets"],
-    theme: ["festive", "trendy", "romantic"],
+    withWho: ["couple", "friends", "family"],
+    theme: ["festive", "trendy", "romantic", "with pets"],
   },
   {
     image:
@@ -132,8 +132,8 @@ const places = [
     metroStation: "Porte Maillot",
     open24Hours: true,
     category: "wood",
-    withWho: ["couple", "friends", "family", "with pets"],
-    theme: ["festive", "trendy", "romantic"],
+    withWho: ["couple", "friends", "family"],
+    theme: ["festive", "trendy", "romantic", "with pets"],
   },
   {
     image:
@@ -184,8 +184,8 @@ const places = [
     metroStation: "Sully Morland",
     open24Hours: true,
     category: "park",
-    withWho: ["couple", "friends", "family", "with pets"],
-    theme: ["romantic", "trendy", "historic", "festive"],
+    withWho: ["couple", "friends", "family"],
+    theme: ["romantic", "trendy", "historic", "festive", "with pets"],
   },
   {
     image:
@@ -236,8 +236,8 @@ const places = [
     metroStation: "Tolbiac",
     open24Hours: false,
     category: "park",
-    withWho: ["friends", "family", "with pets"],
-    theme: "local",
+    withWho: ["friends", "family"],
+    theme: ["local", "with pets"],
   },
   {
     image:
@@ -262,8 +262,8 @@ const places = [
     metroStation: "Chardon Lagache",
     open24Hours: false,
     category: "park",
-    withWho: ["family", "with pets"],
-    theme: "local",
+    withWho: "family",
+    theme: ["local", "with pets"],
   },
   {
     image:
