@@ -15,13 +15,21 @@ const placeSchema = new Schema({
   withWho: [
     {
       type: Schema.Types.String,
-      enum: ["couple", "friends", "family", "with pets"],
+      enum: ["couple", "friends", "family"],
     },
   ],
   theme: [
     {
       type: Schema.Types.String,
-      enum: ["historic", "trendy", "private", "romantic", "festive", "local"],
+      enum: [
+        "historic",
+        "trendy",
+        "private",
+        "romantic",
+        "festive",
+        "local",
+        "with pets",
+      ],
     },
   ],
 });
