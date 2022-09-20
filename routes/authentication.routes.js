@@ -90,4 +90,6 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
+router.get("/me", isAuthenticated, (req, res) => res.json(req.user));
+
 module.exports = router;
