@@ -71,7 +71,7 @@ router.route("/").get(async (req, res, next) => {
 });
 
 // ADD COMMENT
-router.post("/:id/comment", isAuthenticated, async (req, res, next) => {
+router.post("/:id/comments", isAuthenticated, async (req, res, next) => {
   try {
     const { comment } = req.body;
     const commentToCreate = {
@@ -81,6 +81,18 @@ router.post("/:id/comment", isAuthenticated, async (req, res, next) => {
     };
     const createdComment = await Comment.create(commentToCreate);
     res.status(201).json(createdComment);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// SHOW ALL COMMENTS BY PLACE
+router.get("/:id/comments", async (req, res, next) => {
+  try {
+    const comments = await Comment.find({ place: req.params.id }).populate(
+      "user"
+    );
+    return res.status(200).json({ comments });
   } catch (error) {
     next(error);
   }
