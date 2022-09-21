@@ -3,23 +3,9 @@ const Comment = require("../models/Comment.model");
 const isAuthenticated = require("../middleware/isAuthenticated");
 
 // CREATE COMMENT👇
+
 router
   .route("/")
-  .post(isAuthenticated, async (req, res, next) => {
-    try {
-      const { comment } = req.body;
-      const commentToCreate = {
-        comment,
-        user: req.user.id,
-        place: req.params.id,
-      };
-      const createdComment = await Comment.create(commentToCreate);
-      res.status(201).json(createdComment);
-    } catch (error) {
-      next(error);
-    }
-  })
-
   // UPDATE COMMENT👇
   .patch(isAuthenticated, async (req, res, next) => {
     try {
@@ -49,16 +35,5 @@ router
       next(error);
     }
   });
-
-// // Not deployed for now
-// // SHOW ALL COMMENTS BY USER👇
-// router.get("/:id", isAuthenticated, async (req, res, next) => {
-//   try {
-//     const allComments = await Comment.find();
-//     return res.status(200).json(allComments);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 module.exports = router;
