@@ -35,7 +35,7 @@ router.get("/", isAuthenticated, async (req, res, next) => {
   try {
     const favoritesByUser = await Favorite.find({
       user: req.user.id,
-    });
+    }).populate("places");
     return res.status(200).json(favoritesByUser);
   } catch (error) {
     next(error);
