@@ -4,7 +4,7 @@ const isAuthenticated = require("../middleware/isAuthenticated");
 
 // CREATE COMMENT👇
 router
-  .route("/:id")
+  .route("/")
   .post(isAuthenticated, async (req, res, next) => {
     try {
       const { comment } = req.body;

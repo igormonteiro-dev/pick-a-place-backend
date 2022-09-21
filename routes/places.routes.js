@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Place = require("../models/Place.model");
 const Comment = require("../models/Comment.model");
+const isAuthenticated = require("../middleware/isAuthenticated");
 
 // CREATE PLACE👇
 router.post("/", async (req, res, next) => {
@@ -64,6 +65,22 @@ router.route("/").get(async (req, res, next) => {
   try {
     const places = await Place.find(req.query);
     res.json(places);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// ADD COMMENT
+router.post("/:id/comment", isAuthenticated, async (req, res, next) => {
+  try {
+    const { comment } = req.body;
+    const commentToCreate = {
+      comment,
+      user: req.user.id,
+      place: req.params.id,
+    };
+    const createdComment = await Comment.create(commentToCreate);
+    res.status(201).json(createdComment);
   } catch (error) {
     next(error);
   }
