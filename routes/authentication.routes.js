@@ -41,6 +41,7 @@ router.post(
             "This username or email are already registered. Please try to login",
         });
 
+      // create a random text to be hashed
       const generatedSalt = bcrypt.genSaltSync(salt);
       const hashedPassword = bcrypt.hashSync(password, generatedSalt);
 

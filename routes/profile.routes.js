@@ -12,7 +12,7 @@ USER PROFILE PAGE
 */
 
 // Update profile - username, bio and/or avatar👇
-router.post(
+router.patch(
   "/user/profile",
   isAuthenticated,
   fileUploader.single("avatar"),
@@ -37,7 +37,7 @@ router.post(
 );
 
 // UPDATE PASSWORD👇
-router.post("/reset-password", isAuthenticated, async (req, res, next) => {
+router.patch("/reset-password", isAuthenticated, async (req, res, next) => {
   try {
     const { password } = req.body;
 
