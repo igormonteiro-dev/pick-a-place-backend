@@ -42,7 +42,7 @@ router
     }
   });
 
-// SHOW ONE PLACE  WITH COMMENTS WHEN THE USER CLICK👇
+// SHOW ONE PLACE WITH COMMENTS WHEN THE USER CLICK👇
 router.get("/:id", async (req, res, next) => {
   try {
     const placeId = req.params.id;

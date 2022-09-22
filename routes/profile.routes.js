@@ -13,7 +13,7 @@ USER PROFILE PAGE
 
 // Update profile - username, bio and/or avatar👇
 router.post(
-  "/",
+  "/user/profile",
   isAuthenticated,
   fileUploader.single("avatar"),
   async (req, res, next) => {
@@ -70,7 +70,7 @@ router.post("/reset-password", isAuthenticated, async (req, res, next) => {
 });
 
 // Delete account👇
-router.delete("/", isAuthenticated, async (req, res, next) => {
+router.delete("/user/:id/account", isAuthenticated, async (req, res, next) => {
   try {
     await User.findByIdAndDelete(req.user.id);
 
