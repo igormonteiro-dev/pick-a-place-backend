@@ -7,6 +7,7 @@ router
   .route("/:id")
   .post(isAuthenticated, async (req, res, next) => {
     try {
+      // TODO if the user already favorited, send a 400
       const addToFavorites = {
         place: req.params.id,
         user: req.user.id,
@@ -22,6 +23,8 @@ router
   // DELETE FAVORITE👇
   .delete(isAuthenticated, async (req, res, next) => {
     try {
+      // TODO make it use placeId??
+      // in which case we can use .findManyAndDelete
       await Favorite.findByIdAndDelete(req.params.id);
 
       return res.sendStatus(204);
