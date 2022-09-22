@@ -70,7 +70,7 @@ router.post("/reset-password", isAuthenticated, async (req, res, next) => {
 });
 
 // Delete account👇
-router.delete("/user/:id/account", isAuthenticated, async (req, res, next) => {
+router.delete("/user", isAuthenticated, async (req, res, next) => {
   try {
     await User.findByIdAndDelete(req.user.id);
 
