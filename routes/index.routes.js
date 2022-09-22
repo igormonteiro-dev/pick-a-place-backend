@@ -7,7 +7,6 @@ router.get("/", (req, res, next) => {
 // All routes here 👇
 router.use("/places", require("../routes/places.routes"));
 router.use("/auth", require("../routes/authentication.routes"));
-
 router.use("/", require("../routes/profile.routes")); //profile page
 router.use("/user/favorites", require("../routes/favorites.routes"));
 router.use("/", require("./RandomPlaces.routes"));

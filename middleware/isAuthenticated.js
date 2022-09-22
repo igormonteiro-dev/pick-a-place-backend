@@ -1,3 +1,4 @@
+// Verify if user is authenticated using jsonwebtoken
 const jsonwebtoken = require("jsonwebtoken");
 const User = require("../models/User.model");
 

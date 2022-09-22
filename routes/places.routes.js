@@ -40,25 +40,25 @@ router
     } catch (error) {
       next(error);
     }
+  })
+
+  // SHOW ONE PLACE WITH COMMENTS WHEN THE USER CLICK👇
+  .get(async (req, res, next) => {
+    try {
+      const placeId = req.params.id;
+      const placeFound = await Place.findById(placeId);
+      const commentsFortheplace = await Comment.find({ place: placeId })
+        .select({ comment: 1, _id: 0 })
+        .populate({
+          path: "user",
+          select: { username: 1, avatar: 1, createdAt: 1, _id: 0 },
+        });
+
+      res.status(200).json({ placeFound, commentsFortheplace });
+    } catch (error) {
+      next(error);
+    }
   });
-
-// SHOW ONE PLACE WITH COMMENTS WHEN THE USER CLICK👇
-router.get("/:id", async (req, res, next) => {
-  try {
-    const placeId = req.params.id;
-    const placeFound = await Place.findById(placeId);
-    const commentsFortheplace = await Comment.find({ place: placeId })
-      .select({ comment: 1, _id: 0 })
-      .populate({
-        path: "user",
-        select: { username: 1, avatar: 1, createdAt: 1, _id: 0 },
-      });
-
-    res.status(200).json({ placeFound, commentsFortheplace });
-  } catch (error) {
-    next(error);
-  }
-});
 
 // SHOW ALL PLACES BY THEME👇
 router.route("/").get(async (req, res, next) => {
