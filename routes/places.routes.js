@@ -3,7 +3,10 @@ const Place = require("../models/Place.model");
 const Comment = require("../models/Comment.model");
 const isAuthenticated = require("../middleware/isAuthenticated");
 
+//////////////////////////////////////
 // CREATE PLACE👇
+//////////////////////////////////////
+
 router.post("/", async (req, res, next) => {
   try {
     const placeToCreate = await Place.create(req.body);
@@ -14,7 +17,10 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+//////////////////////////////////////
 // UPDATE PLACE BY ID👇
+//////////////////////////////////////
+
 router
   .route("/:id")
   .patch(async (req, res, next) => {
@@ -30,7 +36,10 @@ router
     }
   })
 
+  //////////////////////////////////////
   // DELETE PLACE BY ID👇
+  //////////////////////////////////////
+
   .delete(async (req, res, next) => {
     try {
       const removedPlace = await Place.findByIdAndDelete(req.params.id);
@@ -42,7 +51,10 @@ router
     }
   })
 
-  // SHOW ONE PLACE WITH COMMENTS WHEN THE USER CLICK👇
+  //////////////////////////////////////
+  // SHOW ONE PLACE WITH ALL DETAILS👇
+  //////////////////////////////////////
+
   .get(async (req, res, next) => {
     try {
       const placeId = req.params.id;
@@ -60,17 +72,23 @@ router
     }
   });
 
+//////////////////////////////////////
 // SHOW ALL PLACES BY THEME👇
+//////////////////////////////////////
+
 router.route("/").get(async (req, res, next) => {
   try {
-    const places = await Place.find(req.query);
+    const places = await Place.find(req.query); // fix this
     res.json(places);
   } catch (error) {
     next(error);
   }
 });
 
-// ADD COMMENT
+//////////////////////////////////////
+//ADD COMMENT if user is autheticated👇
+//////////////////////////////////////
+
 router.post("/:id/comments", isAuthenticated, async (req, res, next) => {
   try {
     const { comment } = req.body;
@@ -86,7 +104,10 @@ router.post("/:id/comments", isAuthenticated, async (req, res, next) => {
   }
 });
 
-// SHOW ALL COMMENTS BY PLACE
+//////////////////////////////////////
+// SHOW ALL COMMENTS BY PLACE👇
+//////////////////////////////////////
+
 router.get("/:id/comments", async (req, res, next) => {
   try {
     const comments = await Comment.find({ place: req.params.id }).populate(
@@ -98,9 +119,11 @@ router.get("/:id/comments", async (req, res, next) => {
   }
 });
 
+//////////////////////////////////////
+// UPDATE COMMENT👇
+//////////////////////////////////////
 router
   .route("/comments/:id")
-  // UPDATE COMMENT👇
   .patch(isAuthenticated, async (req, res, next) => {
     try {
       const { comment } = req.body;
@@ -119,7 +142,10 @@ router
     }
   })
 
+  //////////////////////////////////////
   // DELETE COMMENT👇
+  //////////////////////////////////////
+
   .delete(isAuthenticated, async (req, res, next) => {
     try {
       await Comment.findByIdAndRemove(req.params.id);

@@ -4,7 +4,10 @@ router.get("/", (req, res, next) => {
   res.json("All good in here");
 });
 
+//////////////////////////////////////
 // All routes here 👇
+//////////////////////////////////////
+
 router.use("/places", require("../routes/places.routes"));
 router.use("/auth", require("../routes/authentication.routes"));
 router.use("/", require("../routes/profile.routes")); //profile page
