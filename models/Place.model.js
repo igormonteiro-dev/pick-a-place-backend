@@ -7,7 +7,8 @@ const placeSchema = new Schema({
   zipCode: Schema.Types.Number,
   metroLine: Schema.Types.String,
   metroStation: Schema.Types.String,
-  open24Hours: Schema.Types.Boolean,
+  OpeningTimes: Schema.Types.String,
+  description: Schema.Types.String,
   category: {
     type: Schema.Types.String,
     enum: ["wood", "garden", "square", "park"],
